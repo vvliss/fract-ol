@@ -1,40 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   fractals_math.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 21:18:01 by wilisson          #+#    #+#             */
-/*   Updated: 2025/10/10 23:24:22 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/06 20:59:19 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int mandelbrot(double start_r, double start_i, int max_iter)
+int	mandelbrot(t_complex c)
 {
-	double	zr;
-	double	zi;
-	double	temp;
-	int		i;
-	double	modulus_squared;
+	t_complex	z;
+	int			iter;
+	double		temp;
 
-	zr = 0;
-	zi = 0;
-	i = 0;
-	while ((zr * zr + zi * zi <= 4.0) && i < max_iter)
+	z.re = 0;
+	z.im = 0;
+	iter = 0;
+	while (iter < MAX_ITER)
 	{
-		temp = zr * zr - zi * zi + start_r;
-		zi = 2 * zr * zi + start_i;
-		zr = temp;
-		i++;
+		if ((z.re * z.re + z.im * z.im) > 4.0)
+			break ;
+		temp = z.re * z.re - z.im * z.im + c.re;
+		z.im = 2 * z.re * z.im + c.im;
+		z.re = temp;
+		iter++;
 	}
-	if (i == max_iter)
-		return (i);
-	modulus_squared = zr * zr + zi * zi;
-	if (modulus_squared > 0.0)
-		return (i + 1 - log(log(modulus_squared)) / log(2.0));
-	else
-		return (i);
+	return (iter);
+}
+
+int	julia(t_complex z, t_complex c)
+{
+	int		iter;
+	double	temp;
+
+	iter = 0;
+	while (iter < MAX_ITER)
+	{
+		if ((z.re * z.re + z.im * z.im) > 4.0)
+			break ;
+		temp = z.re * z.re - z.im * z.im + c.re;
+		z.im = 2 * z.re * z.im + c.im;
+		z.re = temp;
+		iter++;
+	}
+	return (iter);
 }

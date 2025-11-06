@@ -6,43 +6,39 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 23:25:54 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/06 14:46:08 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/06 20:58:04 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-static void	parse_args(int ac, char **av, t_complex *f)
+#include "fractol.h"
+
+void	help_message(void)
 {
-	if (!(ft_strncmp(av[1], "julia", 5) != 0))
-	{
-		if (ac != 4 || !is_valid_float(av[2]) || !is_valid_float(av[3]))
-			handle_errors(f);
-		f->r = ft_atof(av[2]);
-		f->i = ft_atof(av[3]);
-	}
-	else if (!(ft_strncmp(av[1], "mandelbrot", 11) != 0) && ac == 2)
-		;
-	else if (!(ft_strncmp(av[1], "burning_ship", 12) != 0) && ac == 2)
-		;
-	else
-		handle_errors(f);
+	write(1, "Usage: ./fractol <fractal_type>\n", 32);
+	write(1, "Available fractals:\n", 20);
+	write(1, "  1 - Mandelbrot\n", 17);
+	write(1, "  2 - Julia\n", 12);
 }
 
-int	main(int ac, char **av)
+int	main(int argc, char **argv)
 {
 	t_fractal	f;
 
-	if (ac < 2)
+	if (argc < 2)
 	{
-		give_help();
-		return(1);
+		help_message();
+		return (1);
 	}
-	init(&f, av[1]);
-	parse_args(ac, av, &f);
-	setup_hooks(&f);
-	mlx_loop_hook(f.mlx, draw_fractol, &f);
-	mlx_loop(f.mlx);
-	mlx_terminate(f.mlx);
+	if (argv[1][0] == '1')
+		f.type = 1;
+	else if (argv[1][0] == '2')
+		f.type = 2;
+	else
+	{
+		help_message();
+		return (1);
+	}
 	return (0);
 }
