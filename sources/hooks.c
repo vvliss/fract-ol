@@ -1,45 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 23:25:54 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/07 20:36:06 by wilisson         ###   ########.fr       */
+/*   Created: 2025/11/07 20:37:07 by wilisson          #+#    #+#             */
+/*   Updated: 2025/11/07 20:37:13 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	show_help(void)
+int	close_window(t_fractal *f)
 {
-	write(1, "Usage: ./fractol <fractal_type>\n", 32);
-	write(1, "Available fractals:\n", 20);
-	write(1, "  1 - Mandelbrot\n", 17);
-	write(1, "  2 - Julia\n", 12);
+	if (f->img)
+		mlx_destroy_image(f->mlx, f->img);
+	if (f->win)
+		mlx_destroy_window(f->mlx, f->win);
+	if (f->mlx)
+	{
+		mlx_destroy_display(f->mlx);
+		free(f->mlx);
+	}
+	exit(0);
+	return (0);
 }
 
-int	main(int argc, char **argv)
+int	key_hook(int keycode, t_fractal *f)
 {
-	t_fractal	f;
-
-	if (argc < 2)
-	{
-		show_help();
-		return (1);
-	}
-	if (argv[1][0] == '1')
-		f.type = 1;
-	else if (argv[1][0] == '2')
-		f.type = 2;
-	else
-	{
-		show_help();
-		return (1);
-	}
-	
-	init_fractal(&f, f.type);
-	mlx_loop(f.mlx);
+	if (keycode == 65307)
+		close_window(f);
 	return (0);
 }
