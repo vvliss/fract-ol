@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 14:45:17 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/08 14:57:28 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/08 17:04:32 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	put_pixel(t_fractal *f, int x, int y, int color);
 
 //main
 void	show_help(void);
-int	    main(int argc, char **argv);
 
 //hooks
 int	close_window(t_fractal *f);

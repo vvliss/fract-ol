@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 20:35:42 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/08 15:20:51 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/08 17:03:57 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,45 @@ void	put_pixel(t_fractal *f, int x, int y, int color)
 		dst = f->addr + (y * f->line_length + x * (f->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
+}
+int	create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+
+void	render_fractal(t_fractal *f)
+{
+	int x;
+	int y;
+	int iter;
+	t_complex c;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			c.re = (x / f->zoom) + f->offset_x;
+			c.im = (y / f->zoom) + f->offset_y;
+
+			if (f->type == 1)
+				iter = mandelbrot(c);
+			else
+				iter = julia(c, (t_complex){f->julia_re, f->julia_im});
+
+			if (iter == MAX_ITER)
+				put_pixel(f, x, y, 0x000000);
+			else
+			{
+				int r = iter * 5 % 256;
+				int g = iter * 3 % 256;
+				int b = iter * 10 % 256;
+				put_pixel(f, x, y, create_rgb(r, g, b));
+			}
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(f->mlx, f->win, f->img, 0, 0);
 }
