@@ -6,11 +6,11 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 21:18:01 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/06 20:59:19 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/08 14:32:27 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fractol.h"
+#include "fractol.h"
 
 int	mandelbrot(t_complex c)
 {

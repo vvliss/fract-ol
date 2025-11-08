@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 20:37:07 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/07 20:37:13 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/08 15:20:58 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,19 @@ int	key_hook(int keycode, t_fractal *f)
 {
 	if (keycode == 65307)
 		close_window(f);
+	return (0);
+}
+
+int	mouse_hook(int button, int x, int y, t_fractal *f)
+{
+	(void)x;
+	(void)y;
+	
+	if (button == 4)
+		f->zoom *= 1.1;
+	else if (button == 5)
+		f->zoom /= 1.1;
+	
+	render_fractal(f);
 	return (0);
 }

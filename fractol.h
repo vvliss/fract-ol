@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 14:45:17 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/06 20:56:59 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/08 14:57:28 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,21 @@ typedef struct s_fractal {
 } t_fractal;
 
 //math
+int	mandelbrot(t_complex c);
+int	julia(t_complex z, t_complex c);
 
+//rendering
+void	init_fractal(t_fractal *f, int type);
+void	put_pixel(t_fractal *f, int x, int y, int color);
 
-//julia
+//main
+void	show_help(void);
+int	    main(int argc, char **argv);
 
-//colors
+//hooks
+int	close_window(t_fractal *f);
+int	key_hook(int keycode, t_fractal *f);
+int	mouse_hook(int button, int x, int y, t_fractal *f);
 
-//graphics
 
 #endif
