@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 20:37:07 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/09 16:16:21 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:20:25 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,31 @@
 
 void	close_window(void *param)
 {
-    t_fractal *f = param;
-    mlx_terminate(f->mlx);
-    exit(0);
+	t_fractal	*f;
+
+	f = param;
+	mlx_terminate(f->mlx);
+	exit(0);
 }
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
-    t_fractal *f = param;
+	t_fractal	*f;
 
-    if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-        mlx_close_window(f->mlx);
+	f = param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(f->mlx);
 }
 
 void	scroll_hook(double xdelta, double ydelta, void *param)
 {
-    t_fractal	*f;
+	t_fractal	*f;
 
-    f = (t_fractal *)param;
-    (void)xdelta;
-    if (ydelta > 0) // Scroll up
-        f->zoom *= 1.1;
-    else if (ydelta < 0) // Scroll down
-        f->zoom *= 0.9;
-    render_fractal(f);
+	f = (t_fractal *)param;
+	(void)xdelta;
+	if (ydelta > 0)
+		f->zoom *= 1.1;
+	else if (ydelta < 0)
+		f->zoom *= 0.9;
+	render_fractal(f);
 }

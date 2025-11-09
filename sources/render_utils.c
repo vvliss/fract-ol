@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 17:53:33 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/08 20:15:56 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:03:58 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	calculate_pixel(t_fractal *f, int x, int y)
 
 void	put_pixel(t_fractal *f, int x, int y, int color)
 {
-    if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-    {
-        mlx_put_pixel(f->img, x, y, color);
-    }
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		mlx_put_pixel(f->img, x, y, color);
+	}
 }

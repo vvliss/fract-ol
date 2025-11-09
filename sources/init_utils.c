@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 17:52:25 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/09 16:18:22 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:03:18 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_hooks(t_fractal *f)
 {
 	mlx_close_hook(f->mlx, close_window, f);
 	mlx_key_hook(f->mlx, key_hook, f);
-	mlx_scroll_hook(f->mlx, mouse_hook, f);
+	mlx_scroll_hook(f->mlx, scroll_hook, f);
 }
 
 void	init_fractal(t_fractal *f, int type)

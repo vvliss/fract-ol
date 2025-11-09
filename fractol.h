@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 14:45:17 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/08 20:55:41 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:16:18 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 
 # define WIDTH 800
-# define HEIGHT 800
+# define HEIGHT 600
 # define MAX_ITER 100
 
 typedef struct s_complex
@@ -41,25 +41,23 @@ typedef struct s_fractal
 	double		julia_im;
 }				t_fractal;
 
-/* Parsing */
-int			parse_args(int argc, char **argv, t_fractal *f);
-double		ft_atof(const char *str);
+// major functions
+int				mandelbrot(t_complex c);
+int				julia(t_complex z, t_complex c);
+void			init_fractal(t_fractal *f, int type);
+void			render_fractal(t_fractal *f);
 
-/* Initialization */
-void		init_fractal(t_fractal *f);
+// utils
+void			show_help(void);
+void			put_pixel(t_fractal *f, int x, int y, int color);
+double			ft_atof(const char *str);
 
-/* Rendering */
-void		render_fractal(t_fractal *f);
-void		put_pixel(t_fractal *f, int x, int y, int color);
-int			calculate_pixel(t_fractal *f, int x, int y);
+// hooks
+void			close_window(void *param);
+void			key_hook(mlx_key_data_t keydata, void *param);
+void			scroll_hook(double xdelta, double ydelta, void *param);
 
-/* Math */
-int			mandelbrot(t_complex c);
-int			julia(t_complex z, t_complex c);
-
-/* Hooks */
-void		close_window(void *param);
-void		key_hook(mlx_key_data_t keydata, void *param);
-void		scroll_hook(double xdelta, double ydelta, void *param);
+// helper
+int				calculate_pixel(t_fractal *f, int x, int y);
 
 #endif
