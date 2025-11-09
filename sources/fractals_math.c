@@ -6,47 +6,47 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 21:18:01 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/08 14:32:27 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/08 20:52:44 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 int	mandelbrot(t_complex c)
 {
-	t_complex	z;
-	int			iter;
-	double		temp;
+    t_complex	z;
+    double		temp;
+    int			i;
 
-	z.re = 0;
-	z.im = 0;
-	iter = 0;
-	while (iter < MAX_ITER)
-	{
-		if ((z.re * z.re + z.im * z.im) > 4.0)
-			break ;
-		temp = z.re * z.re - z.im * z.im + c.re;
-		z.im = 2 * z.re * z.im + c.im;
-		z.re = temp;
-		iter++;
-	}
-	return (iter);
+    z.re = 0;
+    z.im = 0;
+    i = 0;
+    while (i < MAX_ITER)
+    {
+        if ((z.re * z.re + z.im * z.im) > 4.0)
+            return (i);
+        temp = 2 * z.re * z.im + c.im;
+        z.re = z.re * z.re - z.im * z.im + c.re;
+        z.im = temp;
+        i++;
+    }
+    return (i);
 }
 
 int	julia(t_complex z, t_complex c)
 {
-	int		iter;
-	double	temp;
+    double	temp;
+    int		i;
 
-	iter = 0;
-	while (iter < MAX_ITER)
-	{
-		if ((z.re * z.re + z.im * z.im) > 4.0)
-			break ;
-		temp = z.re * z.re - z.im * z.im + c.re;
-		z.im = 2 * z.re * z.im + c.im;
-		z.re = temp;
-		iter++;
-	}
-	return (iter);
+    i = 0;
+    while (i < MAX_ITER)
+    {
+        if ((z.re * z.re + z.im * z.im) > 4.0)
+            return (i);
+        temp = 2 * z.re * z.im + c.im;
+        z.re = z.re * z.re - z.im * z.im + c.re;
+        z.im = temp;
+        i++;
+    }
+    return (i);
 }

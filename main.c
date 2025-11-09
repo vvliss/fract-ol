@@ -6,40 +6,22 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 23:25:54 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/07 20:36:06 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/08 20:48:29 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	show_help(void)
-{
-	write(1, "Usage: ./fractol <fractal_type>\n", 32);
-	write(1, "Available fractals:\n", 20);
-	write(1, "  1 - Mandelbrot\n", 17);
-	write(1, "  2 - Julia\n", 12);
-}
-
 int	main(int argc, char **argv)
 {
-	t_fractal	f;
+    t_fractal	f;
 
-	if (argc < 2)
-	{
-		show_help();
-		return (1);
-	}
-	if (argv[1][0] == '1')
-		f.type = 1;
-	else if (argv[1][0] == '2')
-		f.type = 2;
-	else
-	{
-		show_help();
-		return (1);
-	}
-	
-	init_fractal(&f, f.type);
-	mlx_loop(f.mlx);
-	return (0);
+    ft_bzero(&f, sizeof(t_fractal));
+    if (!parse_args(argc, argv, &f))
+        return (1);
+    init_fractal(&f);
+    render_fractal(&f);
+    mlx_loop(f.mlx);
+    mlx_terminate(f.mlx);
+    return (0);
 }

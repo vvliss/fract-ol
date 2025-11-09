@@ -6,44 +6,36 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 20:37:07 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/08 15:20:58 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:16:21 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
-int	close_window(t_fractal *f)
+void	close_window(void *param)
 {
-	if (f->img)
-		mlx_destroy_image(f->mlx, f->img);
-	if (f->win)
-		mlx_destroy_window(f->mlx, f->win);
-	if (f->mlx)
-	{
-		mlx_destroy_display(f->mlx);
-		free(f->mlx);
-	}
-	exit(0);
-	return (0);
+    t_fractal *f = param;
+    mlx_terminate(f->mlx);
+    exit(0);
 }
 
-int	key_hook(int keycode, t_fractal *f)
+void	key_hook(mlx_key_data_t keydata, void *param)
 {
-	if (keycode == 65307)
-		close_window(f);
-	return (0);
+    t_fractal *f = param;
+
+    if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+        mlx_close_window(f->mlx);
 }
 
-int	mouse_hook(int button, int x, int y, t_fractal *f)
+void	scroll_hook(double xdelta, double ydelta, void *param)
 {
-	(void)x;
-	(void)y;
-	
-	if (button == 4)
-		f->zoom *= 1.1;
-	else if (button == 5)
-		f->zoom /= 1.1;
-	
-	render_fractal(f);
-	return (0);
+    t_fractal	*f;
+
+    f = (t_fractal *)param;
+    (void)xdelta;
+    if (ydelta > 0) // Scroll up
+        f->zoom *= 1.1;
+    else if (ydelta < 0) // Scroll down
+        f->zoom *= 0.9;
+    render_fractal(f);
 }
