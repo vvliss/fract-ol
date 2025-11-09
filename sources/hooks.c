@@ -6,7 +6,7 @@
 /*   By: wilisson <wilisson@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 20:37:07 by wilisson          #+#    #+#             */
-/*   Updated: 2025/11/09 17:20:25 by wilisson         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:13:58 by wilisson         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	close_window(void *param)
 {
-	t_fractal	*f;
+    t_fractal	*f;
 
-	f = param;
-	mlx_terminate(f->mlx);
-	exit(0);
+    f = (t_fractal *)param;
+    mlx_close_window(f->mlx);
 }
 
 void	key_hook(mlx_key_data_t keydata, void *param)
